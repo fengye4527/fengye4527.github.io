@@ -3063,7 +3063,7 @@
             });
         }
 
-        // 创建单个干员卡片
+        // 创建单个干员卡片 - 使用数据属性
         function createOperatorCard(operator, index) {
             const card = document.createElement('div');
             card.className = `operator-card rarity-${operator.rarity} fade-in`;
@@ -3082,19 +3082,47 @@
                 tagsHtml += `</div>`;
             }
 
+            const operatorName = operator.name;
+
+            // 确定链接
+            let wikiUrl = '';
+            if (operatorName.includes('阿米娅')) {
+                if (operatorName.includes('近卫')) {
+                    wikiUrl = 'https://prts.wiki/w/阿米娅(近卫)';
+                } else if (operatorName.includes('医疗')) {
+                    wikiUrl = 'https://prts.wiki/w/阿米娅(医疗)';
+                } else {
+                    wikiUrl = 'https://prts.wiki/w/阿米娅'; // 术师形态
+                }
+            } else {
+                wikiUrl = `https://prts.wiki/w/${operatorName}`;
+            }
+
             card.innerHTML = `
-                <div class="operator-header">
-                    <div class="rarity-stars">${stars}</div>
-                    <div class="operator-name"><a href="https://prts.wiki/w/${encodeURIComponent(operator.name)}" target="_blank" class="operator-link">${operator.name}</a></div>
-                    <div class="operator-class">${operator.class}</div>
-                    <div class="operator-subclass">${operator.subclass}</div>
-                    ${tagsHtml}
-                </div>
-            `;
+        <div class="operator-header">
+            <div class="rarity-stars">${stars}</div>
+            <div class="operator-name">
+                <a href="#" class="operator-link" data-wiki-url="${wikiUrl}">
+                    ${operatorName}
+                </a>
+            </div>
+            <div class="operator-class">${operator.class}</div>
+            <div class="operator-subclass">${operator.subclass}</div>
+            ${tagsHtml}
+        </div>
+    `;
+
+            // 添加点击事件
+            const link = card.querySelector('.operator-link');
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = this.getAttribute('data-wiki-url');
+                console.log('打开PRTS Wiki:', url);
+                window.open(url, '_blank');
+            });
 
             return card;
         }
-
         // 重置随机展示设置
         function resetRandomDisplay() {
             document.getElementById('operatorCount').value = 6;
