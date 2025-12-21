@@ -293,28 +293,144 @@
             font-size: 20px;
         }
 
-        .quick-filter-buttons {
+        /* 修改：星级筛选区域样式 */
+        .rarity-filter-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .rarity-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
         }
 
-        .filter-btn {
+        .rarity-btn {
             padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #bdc3c7;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .rarity-btn:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateY(-1px);
+            color: white;
+        }
+
+        .rarity-btn.active {
             background: #3498db;
             border-color: #3498db;
+            color: white;
+            box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 星级颜色 */
+        .rarity-btn-6 {
+            border-left: 4px solid #ff9900;
+        }
+
+        .rarity-btn-5 {
+            border-left: 4px solid #9966ff;
+        }
+
+        .rarity-btn-4 {
+            border-left: 4px solid #3399ff;
+        }
+
+        .rarity-btn-3 {
+            border-left: 4px solid #33cc66;
+        }
+
+        .rarity-btn-2 {
+            border-left: 4px solid #cccccc;
+        }
+
+        .rarity-btn-1 {
+            border-left: 4px solid #999999;
+        }
+
+        /* 修改：职业筛选区域样式 */
+        .class-filter-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .class-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .class-btn {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #bdc3c7;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .class-btn:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateY(-1px);
+            color: white;
+        }
+
+        .class-btn.active {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+            box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 职业颜色标识 */
+        .class-btn[data-class="先锋"] {
+            border-left: 4px solid #f1c40f;
+        }
+
+        .class-btn[data-class="近卫"] {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .class-btn[data-class="重装"] {
+            border-left: 4px solid #3498db;
+        }
+
+        .class-btn[data-class="狙击"] {
+            border-left: 4px solid #2ecc71;
+        }
+
+        .class-btn[data-class="术师"] {
+            border-left: 4px solid #9b59b6;
+        }
+
+        .class-btn[data-class="医疗"] {
+            border-left: 4px solid #1abc9c;
+        }
+
+        .class-btn[data-class="辅助"] {
+            border-left: 4px solid #e67e22;
+        }
+
+        .class-btn[data-class="特种"] {
+            border-left: 4px solid #95a5a6;
         }
 
         /* Tag选择器样式 */
@@ -858,6 +974,11 @@
             .tag-buttons {
                 justify-content: center;
             }
+
+            .rarity-buttons,
+            .class-buttons {
+                justify-content: center;
+            }
         }
 
         /* 动画效果 */
@@ -1084,6 +1205,53 @@
             text-decoration: none;
             color: white;
         }
+
+        /* 新增：清除筛选按钮组 */
+        .filter-clear-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* 修正：选择器界面的干员卡片居中样式 */
+        #operatorSelector .operator-select-card .operator-header {
+            text-align: center;
+            padding: 15px;
+        }
+
+        #operatorSelector .operator-select-card .operator-header .rarity-stars {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #operatorSelector .operator-select-card .operator-name {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        #operatorSelector .operator-select-card .operator-class,
+        #operatorSelector .operator-select-card .operator-subclass {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #operatorSelector .operator-select-card .operator-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 10px;
+            min-height: 24px;
+        }
+
+        #operatorSelector .operator-select-card .operator-tag {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
     </style>
 </head>
 
@@ -1092,7 +1260,7 @@
         <!-- 标题区域 -->
         <header class="card">
             <h1 style="text-align: center; margin-bottom: 10px; color: #f1c40f;">
-                ⚔️ 明日方舟干员随机展示与多池管理系统
+                ⚔️ 明日方舟干员随机展示器
             </h1>
             <p style="text-align: center; color: #ecf0f1; font-size: 16px;">
                 创建、管理多个抽取池，随时切换，数据自动保存
@@ -1200,26 +1368,61 @@
                     <button id="clearSearch" class="btn">🗑️ 清除搜索</button>
                 </div>
 
-                <!-- 快速筛选按钮 -->
-                <div class="quick-filter-buttons">
-                    <button class="filter-btn active" data-filter="all">全部干员</button>
-                    <button class="filter-btn" data-filter="6">⭐⭐⭐⭐⭐⭐ (6星)</button>
-                    <button class="filter-btn" data-filter="5">⭐⭐⭐⭐⭐ (5星)</button>
-                    <button class="filter-btn" data-filter="4">⭐⭐⭐⭐ (4星)</button>
-                    <button class="filter-btn" data-filter="3">⭐⭐⭐ (3星)</button>
-                    <button class="filter-btn" data-filter="2">⭐⭐ (2星)</button>
-                    <button class="filter-btn" data-filter="1">⭐ (1星)</button>
-                    <button class="filter-btn" data-filter="先锋">先锋</button>
-                    <button class="filter-btn" data-filter="近卫">近卫</button>
-                    <button class="filter-btn" data-filter="重装">重装</button>
-                    <button class="filter-btn" data-filter="狙击">狙击</button>
-                    <button class="filter-btn" data-filter="术师">术师</button>
-                    <button class="filter-btn" data-filter="医疗">医疗</button>
-                    <button class="filter-btn" data-filter="辅助">辅助</button>
-                    <button class="filter-btn" data-filter="特种">特种</button>
+                <!-- 星级筛选区域 -->
+                <div class="rarity-filter-section">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="tag-selector-title">⭐ 星级筛选（可多选）</div>
+                        <button id="clearRarityBtn" class="btn btn-small clear-filters-btn">
+                            🗑️ 清除星级
+                        </button>
+                    </div>
+
+                    <div class="rarity-buttons" id="rarityButtons">
+                        <button class="rarity-btn rarity-btn-6" data-rarity="6">
+                            ⭐⭐⭐⭐⭐⭐ 6星
+                        </button>
+                        <button class="rarity-btn rarity-btn-5" data-rarity="5">
+                            ⭐⭐⭐⭐⭐ 5星
+                        </button>
+                        <button class="rarity-btn rarity-btn-4" data-rarity="4">
+                            ⭐⭐⭐⭐ 4星
+                        </button>
+                        <button class="rarity-btn rarity-btn-3" data-rarity="3">
+                            ⭐⭐⭐ 3星
+                        </button>
+                        <button class="rarity-btn rarity-btn-2" data-rarity="2">
+                            ⭐⭐ 2星
+                        </button>
+                        <button class="rarity-btn rarity-btn-1" data-rarity="1">
+                            ⭐ 1星
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 分支筛选（新增部分） -->
+                <!-- 职业筛选区域 -->
+                <div class="class-filter-section">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="tag-selector-title">🎯 职业筛选（可多选）</div>
+                        <button id="clearClassBtn" class="btn btn-small clear-filters-btn">
+                            🗑️ 清除职业
+                        </button>
+                    </div>
+
+                    <div class="class-buttons" id="classButtons">
+                        <button class="class-btn" data-class="先锋">先锋</button>
+                        <button class="class-btn" data-class="近卫">近卫</button>
+                        <button class="class-btn" data-class="重装">重装</button>
+                        <button class="class-btn" data-class="狙击">狙击</button>
+                        <button class="class-btn" data-class="术师">术师</button>
+                        <button class="class-btn" data-class="医疗">医疗</button>
+                        <button class="class-btn" data-class="辅助">辅助</button>
+                        <button class="class-btn" data-class="特种">特种</button>
+                    </div>
+                </div>
+
+                <!-- 分支筛选 -->
                 <div class="subclass-filter-section">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1353,12 +1556,18 @@
                     <div id="selectedFiltersList" class="selected-tags-list">
                         <!-- 筛选条件将在这里显示 -->
                     </div>
+                    <div class="filter-clear-buttons">
+                        <button id="clearAllFiltersBtn" class="btn btn-small clear-filters-btn"
+                            style="margin-top: 10px;">
+                            🗑️ 清除所有筛选
+                        </button>
+                    </div>
                 </div>
 
                 <!-- 批量选择按钮组 -->
                 <div class="batch-select-buttons">
                     <button class="batch-btn" id="selectAllBtn">✅ 全选当前显示</button>
-                    <button class="batch-btn" id="deselectAllBtn">❌ 取消全选</button>
+                    <button class="batch-btn" id="deselectAllBtn">❌ 取消当前页面选择</button>
                     <button class="batch-btn rarity-btn-6" id="selectSixStarBtn">⭐ 全选6星干员</button>
                     <button class="batch-btn rarity-btn-5" id="selectFiveStarBtn">⭐ 全选5星干员</button>
                     <button class="batch-btn rarity-btn-4" id="selectFourStarBtn">⭐ 全选4星干员</button>
@@ -1954,6 +2163,8 @@
 { "name": "罗比菈塔", "rarity": 4, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
 { "name": "溯光星源", "rarity": 6, "class": "辅助", "subclass": "凝滞师", "tags": ["减速", "输出", "支援"] },
 { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] }
+
+
             ]
         }
     </script>
@@ -2368,6 +2579,8 @@
 { "name": "罗比菈塔", "rarity": 4, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
 { "name": "溯光星源", "rarity": 6, "class": "辅助", "subclass": "凝滞师", "tags": ["减速", "输出", "支援"] },
 { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] }
+
+
         ]
     </script>
 
@@ -2378,8 +2591,10 @@
         let selectedOperatorNames = new Set(); // 已选干员名称集合
         let currentFilter = 'all';
         let currentSearch = '';
-        let selectedTags = new Set(); // 新增：已选tag集合
-        let selectedSubclasses = new Set(); // 新增：已选分支集合
+        let selectedTags = new Set(); // 已选tag集合
+        let selectedSubclasses = new Set(); // 已选分支集合
+        let selectedRarities = new Set(); // 新增：已选星级集合
+        let selectedClasses = new Set(); // 新增：已选职业集合
 
         // 多抽取池管理
         let pools = []; // 所有抽取池数组
@@ -2431,6 +2646,12 @@
             // 初始化tag选择器
             initTagSelector();
 
+            // 初始化星级选择器（新增）
+            initRaritySelector();
+
+            // 初始化职业选择器（新增）
+            initClassSelector();
+
             // 初始化分支选择器（新增）
             initSubclassSelector();
 
@@ -2454,95 +2675,36 @@
             });
         }
 
-        // 切换tag选择状态
-        function toggleTagSelection(tag) {
-            if (selectedTags.has(tag)) {
-                selectedTags.delete(tag);
-            } else {
-                selectedTags.add(tag);
-            }
-
-            // 更新按钮状态
-            updateTagButtons();
-
-            // 更新已选tag显示
-            updateFilterIndicator(); // 改为调用统一的更新函数
-
-            // 重新筛选干员
-            filterSelectionOperators();
-        }
-
-        // 清除所有已选tag
-        function clearAllTags() {
-            if (selectedTags.size === 0) {
-                showMessage('当前没有选择任何标签', 'info');
-                return;
-            }
-
-            selectedTags.clear();
-
-            // 更新按钮状态
-            updateTagButtons();
-
-            // 更新已选tag显示
-            updateFilterIndicator(); // 改为调用统一的更新函数
-
-            // 重新筛选干员
-            filterSelectionOperators();
-
-            showMessage('已清除所有标签筛选', 'success');
-        }
-
-        // 更新tag按钮状态
-        function updateTagButtons() {
-            const tagButtons = document.querySelectorAll('.tag-btn');
-            tagButtons.forEach(btn => {
-                const tag = btn.dataset.tag;
-                if (selectedTags.has(tag)) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
+        // 初始化星级选择器
+        function initRaritySelector() {
+            const rarityButtons = document.getElementById('rarityButtons');
+            rarityButtons.addEventListener('click', function (e) {
+                if (e.target.classList.contains('rarity-btn')) {
+                    const rarity = parseInt(e.target.dataset.rarity);
+                    toggleRaritySelection(rarity);
                 }
             });
+
+            // 清除星级按钮事件
+            document.getElementById('clearRarityBtn').addEventListener('click', function () {
+                clearAllRarities();
+            });
         }
 
-        // 更新已选tag显示
-        function updateSelectedTagsDisplay() {
-            const indicator = document.getElementById('selectedTagsIndicator');
-            const tagList = document.getElementById('selectedTagsList');
-
-            if (selectedTags.size === 0) {
-                indicator.classList.remove('active');
-                return;
-            }
-
-            indicator.classList.add('active');
-
-            let html = '';
-            selectedTags.forEach(tag => {
-                html += `
-                    <div class="selected-tag-item">
-                        ${tag}
-                        <button class="remove-tag-btn" onclick="removeSelectedTag('${tag}')">×</button>
-                    </div>
-                `;
+        // 初始化职业选择器
+        function initClassSelector() {
+            const classButtons = document.getElementById('classButtons');
+            classButtons.addEventListener('click', function (e) {
+                if (e.target.classList.contains('class-btn')) {
+                    const operatorClass = e.target.dataset.class;
+                    toggleClassSelection(operatorClass);
+                }
             });
 
-            tagList.innerHTML = html;
-        }
-
-        // 移除已选tag
-        function removeSelectedTag(tag) {
-            selectedTags.delete(tag);
-
-            // 更新按钮状态
-            updateTagButtons();
-
-            // 更新已选tag显示
-            updateSelectedTagsDisplay();
-
-            // 重新筛选干员
-            filterSelectionOperators();
+            // 清除职业按钮事件
+            document.getElementById('clearClassBtn').addEventListener('click', function () {
+                clearAllClasses();
+            });
         }
 
         // 初始化分支选择器
@@ -2561,6 +2723,60 @@
             });
         }
 
+        // 切换tag选择状态
+        function toggleTagSelection(tag) {
+            if (selectedTags.has(tag)) {
+                selectedTags.delete(tag);
+            } else {
+                selectedTags.add(tag);
+            }
+
+            // 更新按钮状态
+            updateTagButtons();
+
+            // 更新筛选指示器
+            updateFilterIndicator();
+
+            // 重新筛选干员
+            filterSelectionOperators();
+        }
+
+        // 切换星级选择状态
+        function toggleRaritySelection(rarity) {
+            if (selectedRarities.has(rarity)) {
+                selectedRarities.delete(rarity);
+            } else {
+                selectedRarities.add(rarity);
+            }
+
+            // 更新按钮状态
+            updateRarityButtons();
+
+            // 更新筛选指示器
+            updateFilterIndicator();
+
+            // 重新筛选干员
+            filterSelectionOperators();
+        }
+
+        // 切换职业选择状态
+        function toggleClassSelection(operatorClass) {
+            if (selectedClasses.has(operatorClass)) {
+                selectedClasses.delete(operatorClass);
+            } else {
+                selectedClasses.add(operatorClass);
+            }
+
+            // 更新按钮状态
+            updateClassButtons();
+
+            // 更新筛选指示器
+            updateFilterIndicator();
+
+            // 重新筛选干员
+            filterSelectionOperators();
+        }
+
         // 切换分支选择状态
         function toggleSubclassSelection(subclass) {
             if (selectedSubclasses.has(subclass)) {
@@ -2577,6 +2793,69 @@
 
             // 重新筛选干员
             filterSelectionOperators();
+        }
+
+        // 清除所有已选tag
+        function clearAllTags() {
+            if (selectedTags.size === 0) {
+                showMessage('当前没有选择任何标签', 'info');
+                return;
+            }
+
+            selectedTags.clear();
+
+            // 更新按钮状态
+            updateTagButtons();
+
+            // 更新筛选指示器
+            updateFilterIndicator();
+
+            // 重新筛选干员
+            filterSelectionOperators();
+
+            showMessage('已清除所有标签筛选', 'success');
+        }
+
+        // 清除所有已选星级
+        function clearAllRarities() {
+            if (selectedRarities.size === 0) {
+                showMessage('当前没有选择任何星级', 'info');
+                return;
+            }
+
+            selectedRarities.clear();
+
+            // 更新按钮状态
+            updateRarityButtons();
+
+            // 更新筛选指示器
+            updateFilterIndicator();
+
+            // 重新筛选干员
+            filterSelectionOperators();
+
+            showMessage('已清除所有星级筛选', 'success');
+        }
+
+        // 清除所有已选职业
+        function clearAllClasses() {
+            if (selectedClasses.size === 0) {
+                showMessage('当前没有选择任何职业', 'info');
+                return;
+            }
+
+            selectedClasses.clear();
+
+            // 更新按钮状态
+            updateClassButtons();
+
+            // 更新筛选指示器
+            updateFilterIndicator();
+
+            // 重新筛选干员
+            filterSelectionOperators();
+
+            showMessage('已清除所有职业筛选', 'success');
         }
 
         // 清除所有已选分支
@@ -2600,6 +2879,45 @@
             showMessage('已清除所有分支筛选', 'success');
         }
 
+        // 更新tag按钮状态
+        function updateTagButtons() {
+            const tagButtons = document.querySelectorAll('.tag-btn');
+            tagButtons.forEach(btn => {
+                const tag = btn.dataset.tag;
+                if (selectedTags.has(tag)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // 更新星级按钮状态
+        function updateRarityButtons() {
+            const rarityButtons = document.querySelectorAll('.rarity-btn');
+            rarityButtons.forEach(btn => {
+                const rarity = parseInt(btn.dataset.rarity);
+                if (selectedRarities.has(rarity)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // 更新职业按钮状态
+        function updateClassButtons() {
+            const classButtons = document.querySelectorAll('.class-btn');
+            classButtons.forEach(btn => {
+                const operatorClass = btn.dataset.class;
+                if (selectedClasses.has(operatorClass)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
         // 更新分支按钮状态
         function updateSubclassButtons() {
             const subclassButtons = document.querySelectorAll('.subclass-btn');
@@ -2614,13 +2932,10 @@
         }
 
         function initFilterIndicator() {
-            const clearAllBtn = document.createElement('button');
-            clearAllBtn.className = 'btn btn-small clear-filters-btn';
-            clearAllBtn.innerHTML = '🗑️ 清除所有筛选';
-            clearAllBtn.style.marginTop = '10px';
-            clearAllBtn.onclick = clearAllFilters;
-
-            document.getElementById('selectedFiltersIndicator').appendChild(clearAllBtn);
+            // 清除所有筛选按钮事件
+            document.getElementById('clearAllFiltersBtn').addEventListener('click', function () {
+                clearAllFilters();
+            });
         }
 
         function updateFilterIndicator() {
@@ -2630,13 +2945,16 @@
             let activeFilters = [];
 
             // 收集所有筛选条件
-            if (currentFilter !== 'all') {
-                const filterNames = {
-                    '6': '6星', '5': '5星', '4': '4星', '3': '3星', '2': '2星', '1': '1星',
-                    '先锋': '先锋', '近卫': '近卫', '重装': '重装', '狙击': '狙击',
-                    '术师': '术师', '医疗': '医疗', '辅助': '辅助', '特种': '特种'
+            if (selectedRarities.size > 0) {
+                const rarityNames = {
+                    6: '6星', 5: '5星', 4: '4星', 3: '3星', 2: '2星', 1: '1星'
                 };
-                activeFilters.push(filterNames[currentFilter] || currentFilter);
+                const rarities = Array.from(selectedRarities).map(r => rarityNames[r]).join('、');
+                activeFilters.push(`星级: ${rarities}`);
+            }
+
+            if (selectedClasses.size > 0) {
+                activeFilters.push(`职业: ${Array.from(selectedClasses).join('、')}`);
             }
 
             if (selectedTags.size > 0) {
@@ -2668,17 +2986,15 @@
 
         function clearAllFilters() {
             // 重置所有筛选条件
-            currentFilter = 'all';
+            selectedRarities.clear();
+            selectedClasses.clear();
             selectedTags.clear();
             selectedSubclasses.clear();
             currentSearch = '';
 
             // 更新UI
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-
+            updateRarityButtons();
+            updateClassButtons();
             updateTagButtons();
             updateSubclassButtons();
 
@@ -2827,29 +3143,13 @@
             // 搜索功能
             document.getElementById('searchInput').addEventListener('input', function () {
                 currentSearch = this.value.toLowerCase();
+                updateFilterIndicator(); // 新增
                 filterSelectionOperators();
             });
 
             document.getElementById('clearSearch').addEventListener('click', function () {
                 document.getElementById('searchInput').value = '';
                 currentSearch = '';
-                filterSelectionOperators();
-            });
-
-            // 快速筛选按钮
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    updateFilterIndicator(); // 新增
-                    filterSelectionOperators();
-                });
-            });
-
-            // 搜索功能
-            document.getElementById('searchInput').addEventListener('input', function () {
-                currentSearch = this.value.toLowerCase();
                 updateFilterIndicator(); // 新增
                 filterSelectionOperators();
             });
@@ -3170,15 +3470,17 @@
                     if (!matchesSearch) return false;
                 }
 
-                // 快速筛选
-                if (currentFilter !== 'all') {
-                    // 稀有度筛选
-                    if (['6', '5', '4', '3', '2', '1'].includes(currentFilter)) {
-                        if (operator.rarity !== parseInt(currentFilter)) return false;
+                // 星级筛选（新增）
+                if (selectedRarities.size > 0) {
+                    if (!selectedRarities.has(operator.rarity)) {
+                        return false;
                     }
-                    // 职业筛选
-                    else {
-                        if (operator.class !== currentFilter) return false;
+                }
+
+                // 职业筛选（新增）
+                if (selectedClasses.size > 0) {
+                    if (!selectedClasses.has(operator.class)) {
+                        return false;
                     }
                 }
 
@@ -3211,9 +3513,6 @@
 
             renderSelectionOperatorsGrid(filtered);
             updateSelectionCounters(filtered.length);
-
-            // 更新筛选指示器
-            updateFilterIndicator();
         }
 
         // 更新tag筛选信息
@@ -3271,7 +3570,7 @@
                     <div class="operator-select-card ${isSelected ? 'selected' : ''} fade-in" 
                          data-name="${operator.name}"
                          style="animation-delay: ${index * 0.05}s">
-                        <div class="operator-header" style="text-align: left; padding: 0;">
+                        <div class="operator-header">
                             <div class="rarity-stars" style="margin-bottom: 10px;">${rarityStars}</div>
                             <div class="operator-name" style="font-size: 16px;">${operator.name}</div>
                             <div class="operator-class" style="font-size: 12px;">${operator.class}</div>
@@ -4553,6 +4852,8 @@
                 { "name": "罗比菈塔", "rarity": 4, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
                 { "name": "溯光星源", "rarity": 6, "class": "辅助", "subclass": "凝滞师", "tags": ["减速", "输出", "支援"] },
                 { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] }
+
+
             ];
         }
 
@@ -4966,6 +5267,8 @@
                 { "name": "罗比菈塔", "rarity": 4, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
                 { "name": "溯光星源", "rarity": 6, "class": "辅助", "subclass": "凝滞师", "tags": ["减速", "输出", "支援"] },
                 { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] }
+
+
             ];
         }
 
@@ -4979,6 +5282,8 @@
         // 新增导出函数
         window.clearAllFilters = clearAllFilters;
         window.clearAllSubclasses = clearAllSubclasses;
+        window.clearAllRarities = clearAllRarities;
+        window.clearAllClasses = clearAllClasses;
     </script>
 </body>
 
