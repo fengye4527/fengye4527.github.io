@@ -2373,16 +2373,13 @@
 
     <script>
         // 全局变量
-        let currentPool = null;
-        let allOperators = [];
-        let selectedOperatorNames = new Set();
-        let selectedTags = new Set();
-        let selectedSubclasses = new Set();
-
-        // 修改：将原来的currentFilter改为多个集合
-        let selectedRarities = new Set(); // 已选稀有度集合
-        let selectedClasses = new Set(); // 已选职业集合
+        let currentPool = null; // 当前使用的抽取池
+        let allOperators = []; // 所有干员数据
+        let selectedOperatorNames = new Set(); // 已选干员名称集合
+        let currentFilter = 'all';
         let currentSearch = '';
+        let selectedTags = new Set(); // 新增：已选tag集合
+        let selectedSubclasses = new Set(); // 新增：已选分支集合
 
         // 多抽取池管理
         let pools = []; // 所有抽取池数组
@@ -2428,8 +2425,8 @@
             // 从LocalStorage加载抽取池数据
             loadPoolsFromStorage();
 
-            // 修改：添加初始化星级和职业选择器
-            initQuickFilterButtons();
+            // 初始化选择器显示
+            filterSelectionOperators();
 
             // 初始化tag选择器
             initTagSelector();
@@ -2439,37 +2436,6 @@
 
             // 初始化筛选指示器（新增）
             initFilterIndicator();
-        }
-
-        function initQuickFilterButtons() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    const filter = this.dataset.filter;
-
-                    if (filter === 'all') {
-                        // 点击"全部干员"时清除所有选择
-                        clearAllQuickFilters();
-                        this.classList.add('active');
-                    } else if (['6', '5', '4', '3', '2', '1'].includes(filter)) {
-                        // 星级筛选
-                        toggleRaritySelection(parseInt(filter));
-                        updateQuickFilterButtons();
-                    } else {
-                        // 职业筛选
-                        toggleClassSelection(filter);
-                        updateQuickFilterButtons();
-                    }
-
-                    // 更新筛选指示器
-                    updateFilterIndicator();
-
-                    // 重新筛选干员
-                    filterSelectionOperators();
-                });
-            });
         }
 
         // 初始化tag选择器
@@ -2664,14 +2630,13 @@
             let activeFilters = [];
 
             // 收集所有筛选条件
-            if (selectedRarities.size > 0) {
-                const rarityNames = Array.from(selectedRarities).map(r => `${r}星`).join('、');
-                activeFilters.push(`星级: ${rarityNames}`);
-            }
-
-            if (selectedClasses.size > 0) {
-                const classNames = Array.from(selectedClasses).join('、');
-                activeFilters.push(`职业: ${classNames}`);
+            if (currentFilter !== 'all') {
+                const filterNames = {
+                    '6': '6星', '5': '5星', '4': '4星', '3': '3星', '2': '2星', '1': '1星',
+                    '先锋': '先锋', '近卫': '近卫', '重装': '重装', '狙击': '狙击',
+                    '术师': '术师', '医疗': '医疗', '辅助': '辅助', '特种': '特种'
+                };
+                activeFilters.push(filterNames[currentFilter] || currentFilter);
             }
 
             if (selectedTags.size > 0) {
@@ -2701,19 +2666,22 @@
             filterList.innerHTML = html;
         }
 
-        // 在原来的 clearAllFilters 函数中整合
         function clearAllFilters() {
-            // 清除所有筛选条件
-            selectedRarities.clear();
-            selectedClasses.clear();
+            // 重置所有筛选条件
+            currentFilter = 'all';
             selectedTags.clear();
             selectedSubclasses.clear();
             currentSearch = '';
 
             // 更新UI
-            updateQuickFilterButtons();
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+
             updateTagButtons();
             updateSubclassButtons();
+
             document.getElementById('searchInput').value = '';
 
             updateFilterIndicator();
@@ -2861,11 +2829,22 @@
                 currentSearch = this.value.toLowerCase();
                 filterSelectionOperators();
             });
-            // 搜索功能（保持不变）
-            document.getElementById('searchInput').addEventListener('input', function () {
-                currentSearch = this.value.toLowerCase();
-                updateFilterIndicator();
+
+            document.getElementById('clearSearch').addEventListener('click', function () {
+                document.getElementById('searchInput').value = '';
+                currentSearch = '';
                 filterSelectionOperators();
+            });
+
+            // 快速筛选按钮
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    updateFilterIndicator(); // 新增
+                    filterSelectionOperators();
+                });
             });
 
             // 搜索功能
@@ -3191,14 +3170,16 @@
                     if (!matchesSearch) return false;
                 }
 
-                // 修改：星级筛选（多选）
-                if (selectedRarities.size > 0) {
-                    if (!selectedRarities.has(operator.rarity)) return false;
-                }
-
-                // 修改：职业筛选（多选）
-                if (selectedClasses.size > 0) {
-                    if (!selectedClasses.has(operator.class)) return false;
+                // 快速筛选
+                if (currentFilter !== 'all') {
+                    // 稀有度筛选
+                    if (['6', '5', '4', '3', '2', '1'].includes(currentFilter)) {
+                        if (operator.rarity !== parseInt(currentFilter)) return false;
+                    }
+                    // 职业筛选
+                    else {
+                        if (operator.class !== currentFilter) return false;
+                    }
                 }
 
                 // Tag筛选
@@ -3214,7 +3195,7 @@
                     }
                 }
 
-                // 分支筛选
+                // 分支筛选（新增）
                 if (selectedSubclasses.size > 0) {
                     if (!operator.subclass) {
                         return false;
@@ -3230,83 +3211,10 @@
 
             renderSelectionOperatorsGrid(filtered);
             updateSelectionCounters(filtered.length);
+
+            // 更新筛选指示器
             updateFilterIndicator();
         }
-        function toggleRaritySelection(rarity) {
-            if (selectedRarities.has(rarity)) {
-                selectedRarities.delete(rarity);
-            } else {
-                selectedRarities.add(rarity);
-            }
-
-            // 如果有星级被选中，确保"全部干员"按钮取消选中
-            if (selectedRarities.size > 0 || selectedClasses.size > 0) {
-                const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-                if (allBtn) allBtn.classList.remove('active');
-            }
-        }
-
-        function toggleClassSelection(className) {
-            if (selectedClasses.has(className)) {
-                selectedClasses.delete(className);
-            } else {
-                selectedClasses.add(className);
-            }
-
-            // 如果有职业被选中，确保"全部干员"按钮取消选中
-            if (selectedClasses.size > 0 || selectedRarities.size > 0) {
-                const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-                if (allBtn) allBtn.classList.remove('active');
-            }
-        }
-
-        function clearAllQuickFilters() {
-            selectedRarities.clear();
-            selectedClasses.clear();
-
-            // 更新按钮状态
-            updateQuickFilterButtons();
-
-            // 清除其他筛选
-            selectedTags.clear();
-            selectedSubclasses.clear();
-            currentSearch = '';
-
-            // 更新其他UI
-            updateTagButtons();
-            updateSubclassButtons();
-            document.getElementById('searchInput').value = '';
-
-            showMessage('已清除所有筛选条件', 'success');
-        }
-
-        function updateQuickFilterButtons() {
-            const allButtons = document.querySelectorAll('.filter-btn');
-
-            // 重置所有按钮
-            allButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // 如果没有选中任何星级或职业，则选中"全部干员"
-            if (selectedRarities.size === 0 && selectedClasses.size === 0) {
-                const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-                if (allBtn) allBtn.classList.add('active');
-            }
-
-            // 更新星级按钮
-            selectedRarities.forEach(rarity => {
-                const btn = document.querySelector(`.filter-btn[data-filter="${rarity}"]`);
-                if (btn) btn.classList.add('active');
-            });
-
-            // 更新职业按钮
-            selectedClasses.forEach(className => {
-                const btn = document.querySelector(`.filter-btn[data-filter="${className}"]`);
-                if (btn) btn.classList.add('active');
-            });
-        }
-
 
         // 更新tag筛选信息
         function updateTagFilterInfo() {
