@@ -695,30 +695,6 @@
             transform: translateY(-2px);
         }
 
-        .rarity-btn-6 {
-            border-left: 4px solid #ff9900;
-        }
-
-        .rarity-btn-5 {
-            border-left: 4px solid #9966ff;
-        }
-
-        .rarity-btn-4 {
-            border-left: 4px solid #3399ff;
-        }
-
-        .rarity-btn-3 {
-            border-left: 4px solid #33cc66;
-        }
-
-        .rarity-btn-2 {
-            border-left: 4px solid #cccccc;
-        }
-
-        .rarity-btn-1 {
-            border-left: 4px solid #999999;
-        }
-
         /* 第三部分：多抽取池管理样式 */
         .pool-manager {
             display: grid;
@@ -818,57 +794,6 @@
             padding: 15px;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
-        }
-
-        #poolManager .operator-card .operator-header {
-            text-align: center;
-            padding: 15px;
-        }
-
-        #poolManager .operator-card .rarity-stars {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        #poolManager .operator-card .operator-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 5px 0;
-            color: white;
-            text-align: center;
-        }
-
-        #poolManager .operator-card .operator-class {
-            font-size: 14px;
-            color: #bdc3c7;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-
-        #poolManager .operator-card .operator-subclass {
-            font-size: 12px;
-            color: #95a5a6;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-
-        #poolManager .operator-card .operator-tags {
-            display: flex;
-            justify-content: center;
-            /* 居中显示 */
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 10px;
-            min-height: 24px;
-        }
-
-        #poolManager .operator-card .operator-tag {
-            background: rgba(52, 152, 219, 0.2);
-            color: #3498db;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 11px;
-            border: 1px solid rgba(52, 152, 219, 0.3);
         }
 
         /* 空状态 */
@@ -1304,50 +1229,133 @@
             border: 1px solid rgba(52, 152, 219, 0.3);
         }
 
-        /* 提示框样式 */
-        .tip-box {
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
-            border: 1px solid rgba(52, 152, 219, 0.3);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.5s ease;
+        #poolManager .operator-card .operator-header {
+            text-align: center;
+            padding: 15px;
         }
 
-        .tip-icon {
-            color: #f1c40f;
-            font-size: 20px;
-            flex-shrink: 0;
+        #poolManager .operator-card .rarity-stars {
+            text-align: center;
+            margin-bottom: 5px;
         }
 
-        .tip-content {
-            color: #ecf0f1;
+        #poolManager .operator-card .operator-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5px 0;
+            color: white;
+            text-align: center;
+        }
+
+        #poolManager .operator-card .operator-class {
             font-size: 14px;
-            line-height: 1.4;
-            flex-grow: 1;
+            color: #bdc3c7;
+            margin-bottom: 5px;
+            text-align: center;
         }
 
-        .tip-highlight {
+        #poolManager .operator-card .operator-subclass {
+            font-size: 12px;
+            color: #95a5a6;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        #poolManager .operator-card .operator-tags {
+            display: flex;
+            justify-content: center;
+            /* 居中显示 */
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 10px;
+            min-height: 24px;
+        }
+
+        #poolManager .operator-card .operator-tag {
+            background: rgba(52, 152, 219, 0.2);
             color: #3498db;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        /* 新增：职业配置面板样式 */
+        .class-config-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .class-config-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(241, 196, 15, 0.3);
+        }
+
+        /* 滑块样式 */
+        .class-slider {
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            flex: 1;
+        }
+
+        .class-slider:hover {
+            opacity: 1;
+        }
+
+        .class-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        .class-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        /* 数字输入框样式 */
+        .class-count-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.5);
+            border-radius: 6px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            width: 50px;
+            padding: 5px;
+        }
+
+        .class-count-input:focus {
+            outline: none;
+            border-color: #f1c40f;
+            box-shadow: 0 0 5px rgba(241, 196, 15, 0.3);
+        }
+
+        /* 配置状态指示器 */
+        .config-status-active {
+            color: #2ecc71 !important;
             font-weight: bold;
         }
 
-        .tip-wiki {
-            color: #f1c40f;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        /* 鼠标悬停效果 */
-        .tip-box:hover {
-            border-color: rgba(241, 196, 15, 0.5);
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
-            transform: translateY(-1px);
-            transition: all 0.3s ease;
+        .config-status-inactive {
+            color: #e74c3c !important;
         }
     </style>
 </head>
@@ -1416,6 +1424,172 @@
                     </div>
                 </div>
 
+                <!-- 职业数量配置面板 -->
+                <div class="card" style="margin: 20px 0;">
+                    <h3 style="color: #f1c40f; margin-bottom: 15px;">
+                        🎯 职业数量配置 <span style="font-size: 14px; color: #bdc3c7;">(先抽取指定职业，剩余名额全局随机)</span>
+                    </h3>
+
+                    <div class="class-config-panel" style="margin-bottom: 20px;">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                            <!-- 先锋 -->
+                            <div class="class-config-item" data-class="先锋">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #f1c40f; font-weight: bold;">先锋</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="先锋"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="先锋" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 近卫 -->
+                            <div class="class-config-item" data-class="近卫">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #e74c3c; font-weight: bold;">近卫</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="近卫"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="近卫" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 医疗 -->
+                            <div class="class-config-item" data-class="医疗">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #1abc9c; font-weight: bold;">医疗</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="医疗"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="医疗" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 重装 -->
+                            <div class="class-config-item" data-class="重装">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #3498db; font-weight: bold;">重装</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="重装"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="重装" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 狙击 -->
+                            <div class="class-config-item" data-class="狙击">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #2ecc71; font-weight: bold;">狙击</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="狙击"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="狙击" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 术师 -->
+                            <div class="class-config-item" data-class="术师">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #9b59b6; font-weight: bold;">术师</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="术师"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="术师" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 辅助 -->
+                            <div class="class-config-item" data-class="辅助">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #e67e22; font-weight: bold;">辅助</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="辅助"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="辅助" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+
+                            <!-- 特种 -->
+                            <div class="class-config-item" data-class="特种">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="color: #95a5a6; font-weight: bold;">特种</span>
+                                    <span style="font-size: 12px; color: #95a5a6;" class="available-count">可用: 0</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="range" class="class-slider" min="0" max="12" value="0" data-class="特种"
+                                        style="flex: 1;">
+                                    <input type="number" class="class-count-input" min="0" max="12" value="0"
+                                        data-class="特种" style="width: 50px; padding: 5px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 配置信息和按钮 -->
+                    <div
+                        style="background: rgba(52, 152, 219, 0.1); border-radius: 10px; padding: 15px; margin-top: 15px;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <span style="color: #3498db; font-weight: bold;">配置状态：</span>
+                                <span id="configStatus" style="color: #bdc3c7;">未应用</span>
+                            </div>
+                            <div>
+                                <span style="color: #f1c40f; font-weight: bold;">已分配：</span>
+                                <span id="allocatedCount">0</span>
+                                <span style="color: #bdc3c7;"> / 总共：</span>
+                                <span id="totalDisplayCount">6</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button id="applyClassConfig" class="btn btn-success btn-small">✅ 应用职业配置</button>
+                            <button id="resetClassConfig" class="btn btn-danger btn-small">🔄 重置职业配置</button>
+                            <button id="saveClassTemplate" class="btn btn-warning btn-small" style="display: none;">💾
+                                保存为模板</button>
+                            <button id="loadBalancedTemplate" class="btn btn-primary btn-small"
+                                style="display: none;">⚖️ 平衡队形模板</button>
+                        </div>
+
+                        <div style="margin-top: 10px; color: #95a5a6; font-size: 13px;">
+                            <div>💡 使用方法：</div>
+                            <div>1. 设置各职业需要的数量（如：医疗1、先锋2、近卫3）</div>
+                            <div>2. 点击"应用职业配置"</div>
+                            <div>3. 点击"随机展示"，系统会先抽取指定职业，剩余名额全局随机</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 统计信息 -->
                 <div class="stats-panel">
                     <div class="stat-item">
@@ -1444,14 +1618,6 @@
                     </div>
                 </div>
 
-                <!-- 新增：使用提示框 -->
-                <div class="tip-box">
-                    <div class="tip-icon">💡</div>
-                    <div class="tip-content">
-                        <span class="tip-highlight">使用提示：</span>点击任意干员名称即可跳转到<span class="tip-wiki">PRTS
-                            Wiki</span>查看详细的干员介绍、技能、数值等信息
-                    </div>
-                </div>
                 <div id="operatorsContainer" class="operators-grid">
                     <!-- 干员卡片将通过JavaScript动态生成 -->
                     <div class="empty-state">
@@ -1558,7 +1724,6 @@
                         <button class="subclass-btn" data-subclass="领主" data-class="近卫">领主</button>
                         <button class="subclass-btn" data-subclass="剑豪" data-class="近卫">剑豪</button>
                         <button class="subclass-btn" data-subclass="武者" data-class="近卫">武者</button>
-                        <button class="subclass-btn" data-subclass="斗士" data-class="近卫">斗士</button>
                         <button class="subclass-btn" data-subclass="本源近卫" data-class="近卫">本源近卫</button>
 
                         <!-- 重装分支 -->
@@ -2282,7 +2447,6 @@
 { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
 { "name": "撷英调香师", "rarity": 5, "class": "辅助", "subclass": "护佑者", "tags": ["支援", "生存"] },
 
-
             ]
         }
     </script>
@@ -2701,7 +2865,6 @@
 { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
 { "name": "撷英调香师", "rarity": 5, "class": "辅助", "subclass": "护佑者", "tags": ["支援", "生存"] },
 
-
         ]
     </script>
 
@@ -2714,13 +2877,28 @@
             let currentSearch = '';
             let selectedTags = new Set(); // 已选tag集合
             let selectedSubclasses = new Set(); // 已选分支集合
-            let selectedRarities = new Set(); // 新增：已选星级集合
-            let selectedClasses = new Set(); // 新增：已选职业集合
+            let selectedRarities = new Set(); // 已选星级集合
+            let selectedClasses = new Set(); // 已选职业集合
 
             // 多抽取池管理
             let pools = []; // 所有抽取池数组
             let currentPoolId = null; // 当前选中的池ID
             let editingPoolId = null; // 正在编辑的池ID
+
+            // 职业数量配置
+            let classRequirements = {
+                "先锋": 0,
+                "近卫": 0,
+                "医疗": 0,
+                "重装": 0,
+                "狙击": 0,
+                "术师": 0,
+                "辅助": 0,
+                "特种": 0
+            };
+
+            let isClassConfigApplied = false;
+            let classConfigActive = false;
 
             // LocalStorage 键名
             const STORAGE_KEYS = {
@@ -2767,17 +2945,23 @@
                 // 初始化tag选择器
                 initTagSelector();
 
-                // 初始化星级选择器（新增）
+                // 初始化星级选择器
                 initRaritySelector();
 
-                // 初始化职业选择器（新增）
+                // 初始化职业选择器
                 initClassSelector();
 
-                // 初始化分支选择器（新增）
+                // 初始化分支选择器
                 initSubclassSelector();
 
-                // 初始化筛选指示器（新增）
+                // 初始化筛选指示器
                 initFilterIndicator();
+
+                // 更新总显示数量
+                updateTotalDisplayCount();
+
+                // 初始更新可用干员计数
+                updateAvailableCounts();
             }
 
             // 初始化tag选择器
@@ -2841,6 +3025,14 @@
                 // 清除分支按钮事件
                 document.getElementById('clearSubclassBtn').addEventListener('click', function () {
                     clearAllSubclasses();
+                });
+            }
+
+            // 初始化筛选指示器
+            function initFilterIndicator() {
+                // 清除所有筛选按钮事件
+                document.getElementById('clearAllFiltersBtn').addEventListener('click', function () {
+                    clearAllFilters();
                 });
             }
 
@@ -3052,13 +3244,6 @@
                 });
             }
 
-            function initFilterIndicator() {
-                // 清除所有筛选按钮事件
-                document.getElementById('clearAllFiltersBtn').addEventListener('click', function () {
-                    clearAllFilters();
-                });
-            }
-
             function updateFilterIndicator() {
                 const indicator = document.getElementById('selectedFiltersIndicator');
                 const filterList = document.getElementById('selectedFiltersList');
@@ -3248,9 +3433,66 @@
                 });
 
                 // 第一部分：随机展示功能
-                document.getElementById('randomizeBtn').addEventListener('click', randomizeDisplay);
+                document.getElementById('randomizeBtn').addEventListener('click', function () {
+                    // 检查职业配置是否有效
+                    if (classConfigActive) {
+                        const totalAllocated = Object.values(classRequirements).reduce((a, b) => a + b, 0);
+                        const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
+
+                        if (totalAllocated > displayCount) {
+                            if (confirm(`职业配置数量(${totalAllocated})超过总展示数量(${displayCount})，是否自动调整？`)) {
+                                // 自动调整
+                                const scale = displayCount / totalAllocated;
+                                Object.keys(classRequirements).forEach(cls => {
+                                    classRequirements[cls] = Math.floor(classRequirements[cls] * scale);
+                                });
+
+                                // 更新UI
+                                Object.keys(classRequirements).forEach(cls => {
+                                    document.querySelector(`.class-count-input[data-class="${cls}"]`).value = classRequirements[cls];
+                                    document.querySelector(`.class-slider[data-class="${cls}"]`).value = classRequirements[cls];
+                                });
+
+                                updateAllocatedCount();
+                                showMessage('已自动调整职业配置数量', 'info');
+                            }
+                        }
+                    }
+
+                    // 执行随机展示
+                    randomizeDisplay();
+                });
                 document.getElementById('resetFiltersBtn').addEventListener('click', resetRandomDisplay);
                 document.getElementById('switchPoolBtn').addEventListener('click', showSwitchPoolModal);
+
+                // 职业配置按钮事件
+                document.getElementById('applyClassConfig').addEventListener('click', applyClassConfig);
+                document.getElementById('resetClassConfig').addEventListener('click', resetClassConfig);
+                document.getElementById('saveClassTemplate').addEventListener('click', saveClassTemplate);
+                document.getElementById('loadBalancedTemplate').addEventListener('click', loadBalancedTemplate);
+
+                // 滑块和数字输入框联动
+                document.querySelectorAll('.class-slider').forEach(slider => {
+                    slider.addEventListener('input', function () {
+                        const operatorClass = this.dataset.class;
+                        const numberInput = document.querySelector(`.class-count-input[data-class="${operatorClass}"]`);
+                        numberInput.value = this.value;
+                        updateAllocatedCount();
+                    });
+                });
+
+                document.querySelectorAll('.class-count-input').forEach(input => {
+                    input.addEventListener('input', function () {
+                        const operatorClass = this.dataset.class;
+                        const slider = document.querySelector(`.class-slider[data-class="${operatorClass}"]`);
+                        let value = parseInt(this.value) || 0;
+                        if (value < 0) value = 0;
+                        if (value > 12) value = 12;
+                        this.value = value;
+                        slider.value = value;
+                        updateAllocatedCount();
+                    });
+                });
 
                 // 数量输入框变化
                 document.getElementById('operatorCount').addEventListener('change', function () {
@@ -3258,20 +3500,21 @@
                     if (value < 1) value = 1;
                     if (value > 12) value = 12;
                     this.value = value;
+                    updateTotalDisplayCount();
                 });
 
                 // 第二部分：选择器功能
                 // 搜索功能
                 document.getElementById('searchInput').addEventListener('input', function () {
                     currentSearch = this.value.toLowerCase();
-                    updateFilterIndicator(); // 新增
+                    updateFilterIndicator();
                     filterSelectionOperators();
                 });
 
                 document.getElementById('clearSearch').addEventListener('click', function () {
                     document.getElementById('searchInput').value = '';
                     currentSearch = '';
-                    updateFilterIndicator(); // 新增
+                    updateFilterIndicator();
                     filterSelectionOperators();
                 });
 
@@ -3367,9 +3610,10 @@
                 document.getElementById('lastSavedTime').textContent = formatTimeAgo(currentPool.modifiedAt);
 
                 updatePoolStats();
+                updateAvailableCounts(); // 更新可用干员计数
             }
 
-            // 随机展示干员 - 修复版本
+            // 随机展示干员 - 支持职业配置
             function randomizeDisplay() {
                 if (!currentPool || !currentPool.operators || currentPool.operators.length === 0) {
                     showMessage('抽取池为空，请先选择干员', 'warning');
@@ -3382,80 +3626,132 @@
                 const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
                 console.log('需要展示数量:', displayCount);
 
-                // 第一步：找出所有阿米娅干员
+                // 第一步：处理阿米娅干员逻辑（保持原有逻辑）
                 const amiyaOperators = currentPool.operators.filter(op =>
                     typeof op.name === 'string' && op.name.includes('阿米娅')
                 );
-                console.log('找到阿米娅干员数量:', amiyaOperators.length);
 
                 let selectedAmiyaType = null;
                 let availableOperators = [];
 
-                // 第二步：处理阿米娅逻辑
                 if (amiyaOperators.length > 0) {
-                    // 随机选择一种阿米娅形态
                     const randomAmiyaIndex = Math.floor(Math.random() * amiyaOperators.length);
                     selectedAmiyaType = amiyaOperators[randomAmiyaIndex].class;
-                    console.log('选择的阿米娅形态:', selectedAmiyaType);
 
-                    // 创建可选的干员列表：只包含该形态的阿米娅和其他非阿米娅干员
                     availableOperators = currentPool.operators.filter(op => {
                         const isAmiya = typeof op.name === 'string' && op.name.includes('阿米娅');
                         if (!isAmiya) {
-                            return true; // 非阿米娅干员都可选
+                            return true;
                         }
-                        // 是阿米娅，只有匹配选定形态的才可选
                         return op.class === selectedAmiyaType;
                     });
                 } else {
-                    // 没有阿米娅，所有干员都可选
                     availableOperators = [...currentPool.operators];
                 }
 
                 console.log('可用干员数量:', availableOperators.length);
 
-                // 第三步：随机选择干员
                 let selectedOperators = [];
 
-                // 如果可用干员数量不足，调整展示数量
-                const actualDisplayCount = Math.min(displayCount, availableOperators.length);
+                // 第二步：如果应用了职业配置，先按配置抽取
+                if (classConfigActive && isClassConfigApplied) {
+                    console.log('使用职业配置进行抽取');
+                    console.log('职业配置:', classRequirements);
 
-                if (actualDisplayCount === 0) {
-                    showMessage('没有可用的干员进行展示', 'warning');
-                    // 清空显示区域
-                    displayOperators([]);
-                    document.getElementById('displayingCount').textContent = '0';
-                    return;
+                    // 按职业需求抽取
+                    Object.keys(classRequirements).forEach(cls => {
+                        const requiredCount = classRequirements[cls];
+
+                        if (requiredCount > 0) {
+                            console.log(`抽取 ${requiredCount} 个 ${cls} 职业干员`);
+
+                            // 从可用干员中筛选该职业的干员，并排除已选的干员
+                            const classOperators = availableOperators.filter(op =>
+                                op.class === cls &&
+                                !selectedOperators.includes(op)
+                            );
+
+                            console.log(`池中可用的 ${cls} 职业干员数量: ${classOperators.length}`);
+
+                            if (classOperators.length > 0) {
+                                const actualCount = Math.min(requiredCount, classOperators.length);
+                                const selected = getRandomOperators(classOperators, actualCount);
+
+                                selectedOperators.push(...selected);
+                                console.log(`实际抽取了 ${selected.length} 个 ${cls} 职业干员`);
+
+                                // 从可用干员中移除已选的干员
+                                availableOperators = availableOperators.filter(op =>
+                                    !selected.includes(op)
+                                );
+                            } else {
+                                console.log(`没有可用的 ${cls} 职业干员`);
+                            }
+                        }
+                    });
+
+                    console.log('按职业配置抽取后，已选干员数量:', selectedOperators.length);
+                    console.log('剩余可用干员数量:', availableOperators.length);
                 }
 
-                // 创建副本进行随机选择
-                const operatorsToChooseFrom = [...availableOperators];
+                // 第三步：补足剩余名额（全局随机）
+                const remainingCount = displayCount - selectedOperators.length;
 
-                for (let i = 0; i < actualDisplayCount; i++) {
-                    if (operatorsToChooseFrom.length === 0) break;
+                if (remainingCount > 0) {
+                    console.log(`需要补足 ${remainingCount} 个名额`);
 
-                    const randomIndex = Math.floor(Math.random() * operatorsToChooseFrom.length);
-                    selectedOperators.push(operatorsToChooseFrom[randomIndex]);
-                    operatorsToChooseFrom.splice(randomIndex, 1);
+                    if (availableOperators.length > 0) {
+                        const actualRemaining = Math.min(remainingCount, availableOperators.length);
+                        const remainingSelected = getRandomOperators(availableOperators, actualRemaining);
 
-                    console.log(`选择了第${i + 1}个干员:`, operatorsToChooseFrom[randomIndex]?.name);
+                        selectedOperators.push(...remainingSelected);
+                        console.log(`补足了 ${remainingSelected.length} 个随机干员`);
+                    } else {
+                        console.log('没有可用的干员进行补充');
+                    }
                 }
 
                 console.log('最终选择的干员数量:', selectedOperators.length);
 
-                // 第四步：显示选中的干员
+                // 第四步：显示结果
+                if (selectedOperators.length === 0) {
+                    showMessage('没有抽取到任何干员，请检查配置', 'warning');
+                    return;
+                }
+
+                // 显示统计信息
+                const classStats = {};
+                selectedOperators.forEach(op => {
+                    classStats[op.class] = (classStats[op.class] || 0) + 1;
+                });
+
+                let statsText = '抽取结果: ';
+                Object.keys(classStats).forEach(cls => {
+                    statsText += `${cls}${classStats[cls]} `;
+                });
+
+                // 第五步：显示选中的干员
                 displayOperators(selectedOperators);
 
                 // 更新显示计数
                 document.getElementById('displayingCount').textContent = selectedOperators.length;
-                document.getElementById('displayMode').textContent = '随机展示';
+                document.getElementById('displayMode').textContent = classConfigActive ? '职业配置+随机' : '随机展示';
 
                 // 显示消息
-                const message = selectedOperators.length < displayCount ?
-                    `从"${currentPool.name}"中随机展示了 ${selectedOperators.length} 名干员（可用干员不足）` :
-                    `从"${currentPool.name}"中随机展示了 ${selectedOperators.length} 名干员`;
+                let message;
+                if (classConfigActive) {
+                    message = `从"${currentPool.name}"中抽取了 ${selectedOperators.length} 名干员（按职业配置）`;
+                    if (remainingCount > 0 && availableOperators.length === 0) {
+                        message += '（可用干员不足）';
+                    }
+                } else {
+                    message = `从"${currentPool.name}"中随机展示了 ${selectedOperators.length} 名干员`;
+                }
 
                 showMessage(message, 'success');
+
+                // 显示详细统计
+                console.log(statsText);
             }
 
             // 显示干员卡片
@@ -3544,11 +3840,14 @@
 
                 return card;
             }
+
             // 重置随机展示设置
             function resetRandomDisplay() {
                 document.getElementById('operatorCount').value = 6;
+                resetClassConfig(); // 重置职业配置
+                updateTotalDisplayCount();
                 randomizeDisplay();
-                showMessage('已重置展示设置', 'info');
+                showMessage('已重置所有设置', 'info');
             }
 
             // 更新抽取池统计
@@ -3568,6 +3867,251 @@
                 // 统计6星干员数量
                 const sixStarCount = currentPool.operators.filter(op => op.rarity === 6).length;
                 document.getElementById('sixStarCount').textContent = sixStarCount;
+            }
+
+            // ==================== 职业数量配置功能 ====================
+
+            // 应用职业配置
+            function applyClassConfig() {
+                // 读取所有职业的配置值
+                const requirements = {};
+                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
+
+                let totalAllocated = 0;
+                let hasRequirements = false;
+
+                classes.forEach(operatorClass => {
+                    const value = parseInt(document.querySelector(`.class-count-input[data-class="${operatorClass}"]`).value) || 0;
+                    requirements[operatorClass] = value;
+
+                    if (value > 0) {
+                        totalAllocated += value;
+                        hasRequirements = true;
+                    }
+                });
+
+                // 检查总数是否合理
+                const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
+
+                if (totalAllocated > displayCount) {
+                    showMessage(`分配的干员数量(${totalAllocated})超过总展示数量(${displayCount})，已自动调整`, 'warning');
+
+                    // 按比例调整
+                    const scale = displayCount / totalAllocated;
+                    classes.forEach(cls => {
+                        requirements[cls] = Math.floor(requirements[cls] * scale);
+                    });
+
+                    // 更新UI
+                    classes.forEach(cls => {
+                        document.querySelector(`.class-count-input[data-class="${cls}"]`).value = requirements[cls];
+                        document.querySelector(`.class-slider[data-class="${cls}"]`).value = requirements[cls];
+                    });
+
+                    updateAllocatedCount();
+                }
+
+                // 保存配置
+                classRequirements = requirements;
+                isClassConfigApplied = true;
+                classConfigActive = true;
+
+                // 更新状态显示
+                document.getElementById('configStatus').textContent = '已应用';
+                document.getElementById('configStatus').className = 'config-status-active';
+                document.getElementById('displayMode').textContent = '职业配置+随机';
+
+                // 检查每个职业的可用干员是否足够
+                checkClassAvailability();
+
+                showMessage('职业配置已应用，下次随机展示将按此配置执行', 'success');
+            }
+
+            // 重置职业配置
+            function resetClassConfig() {
+                // 重置所有输入框
+                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
+
+                classes.forEach(operatorClass => {
+                    document.querySelector(`.class-count-input[data-class="${operatorClass}"]`).value = 0;
+                    document.querySelector(`.class-slider[data-class="${operatorClass}"]`).value = 0;
+                });
+
+                // 重置配置状态
+                classRequirements = {
+                    "先锋": 0,
+                    "近卫": 0,
+                    "医疗": 0,
+                    "重装": 0,
+                    "狙击": 0,
+                    "术师": 0,
+                    "辅助": 0,
+                    "特种": 0
+                };
+
+                isClassConfigApplied = false;
+                classConfigActive = false;
+
+                // 更新状态显示
+                document.getElementById('configStatus').textContent = '未应用';
+                document.getElementById('configStatus').className = 'config-status-inactive';
+                document.getElementById('displayMode').textContent = '随机展示';
+
+                updateAllocatedCount();
+                showMessage('职业配置已重置', 'info');
+            }
+
+            // 保存为模板
+            function saveClassTemplate() {
+                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
+                const template = {};
+
+                classes.forEach(cls => {
+                    const value = parseInt(document.querySelector(`.class-count-input[data-class="${cls}"]`).value) || 0;
+                    template[cls] = value;
+                });
+
+                // 保存到localStorage
+                try {
+                    localStorage.setItem('arknights_class_template', JSON.stringify(template));
+                    showMessage('职业配置已保存为模板', 'success');
+                } catch (error) {
+                    showMessage('保存模板失败', 'error');
+                }
+            }
+
+            // 加载平衡队形模板
+            function loadBalancedTemplate() {
+                // 平衡队形模板：2医2先3近3随（假设总数为10）
+                const balancedTemplate = {
+                    "先锋": 2,
+                    "近卫": 3,
+                    "医疗": 2,
+                    "重装": 1,
+                    "狙击": 1,
+                    "术师": 1,
+                    "辅助": 0,
+                    "特种": 0
+                };
+
+                // 更新UI
+                Object.keys(balancedTemplate).forEach(operatorClass => {
+                    document.querySelector(`.class-count-input[data-class="${operatorClass}"]`).value = balancedTemplate[operatorClass];
+                    document.querySelector(`.class-slider[data-class="${operatorClass}"]`).value = balancedTemplate[operatorClass];
+                });
+
+                updateAllocatedCount();
+                showMessage('已加载平衡队形模板', 'info');
+            }
+
+            // 更新已分配数量
+            function updateAllocatedCount() {
+                const inputs = document.querySelectorAll('.class-count-input');
+                let total = 0;
+
+                inputs.forEach(input => {
+                    total += parseInt(input.value) || 0;
+                });
+
+                document.getElementById('allocatedCount').textContent = total;
+
+                // 检查是否超过总显示数量
+                const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
+                if (total > displayCount) {
+                    document.getElementById('allocatedCount').style.color = '#e74c3c';
+                    document.getElementById('allocatedCount').style.fontWeight = 'bold';
+                } else {
+                    document.getElementById('allocatedCount').style.color = '#f1c40f';
+                    document.getElementById('allocatedCount').style.fontWeight = 'normal';
+                }
+            }
+
+            // 更新总显示数量
+            function updateTotalDisplayCount() {
+                const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
+                document.getElementById('totalDisplayCount').textContent = displayCount;
+                updateAllocatedCount();
+            }
+
+            // 更新可用干员计数
+            function updateAvailableCounts() {
+                if (!currentPool || !currentPool.operators) return;
+
+                const classCounts = {};
+                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
+
+                // 初始化计数
+                classes.forEach(cls => {
+                    classCounts[cls] = 0;
+                });
+
+                // 统计当前池中各职业的数量
+                currentPool.operators.forEach(operator => {
+                    if (classCounts.hasOwnProperty(operator.class)) {
+                        classCounts[operator.class]++;
+                    }
+                });
+
+                // 更新UI
+                classes.forEach(cls => {
+                    const countElement = document.querySelector(`.available-count[data-class="${cls}"]`);
+                    if (countElement) {
+                        countElement.textContent = `可用: ${classCounts[cls]}`;
+
+                        // 如果数量不足，显示警告色
+                        const required = parseInt(document.querySelector(`.class-count-input[data-class="${cls}"]`).value) || 0;
+                        if (required > classCounts[cls]) {
+                            countElement.style.color = '#e74c3c';
+                        } else {
+                            countElement.style.color = '#95a5a6';
+                        }
+                    }
+                });
+            }
+
+            // 检查职业可用性
+            function checkClassAvailability() {
+                if (!currentPool || !currentPool.operators) return;
+
+                const warnings = [];
+                Object.keys(classRequirements).forEach(cls => {
+                    const required = classRequirements[cls];
+                    if (required > 0) {
+                        // 统计该职业在池中的数量
+                        const available = currentPool.operators.filter(op => op.class === cls).length;
+
+                        if (required > available) {
+                            warnings.push(`${cls}: 需要${required}个，但池中只有${available}个`);
+                        }
+                    }
+                });
+
+                if (warnings.length > 0) {
+                    showMessage(`部分职业数量不足：${warnings.join('; ')}`, 'warning');
+                }
+            }
+
+            // 辅助函数：从数组中随机选择指定数量的元素
+            function getRandomOperators(operators, count) {
+                if (!operators || operators.length === 0 || count <= 0) {
+                    return [];
+                }
+
+                const result = [];
+                const available = [...operators]; // 创建副本
+
+                // 如果需要的数量大于可用数量，调整数量
+                const actualCount = Math.min(count, available.length);
+
+                for (let i = 0; i < actualCount; i++) {
+                    if (available.length === 0) break;
+
+                    const randomIndex = Math.floor(Math.random() * available.length);
+                    result.push(available[randomIndex]);
+                    available.splice(randomIndex, 1);
+                }
+
+                return result;
             }
 
             // ==================== 第二部分：干员选择器功能 ====================
@@ -3591,14 +4135,14 @@
                         if (!matchesSearch) return false;
                     }
 
-                    // 星级筛选（新增）
+                    // 星级筛选
                     if (selectedRarities.size > 0) {
                         if (!selectedRarities.has(operator.rarity)) {
                             return false;
                         }
                     }
 
-                    // 职业筛选（新增）
+                    // 职业筛选
                     if (selectedClasses.size > 0) {
                         if (!selectedClasses.has(operator.class)) {
                             return false;
@@ -3618,7 +4162,7 @@
                         }
                     }
 
-                    // 分支筛选（新增）
+                    // 分支筛选
                     if (selectedSubclasses.size > 0) {
                         if (!operator.subclass) {
                             return false;
@@ -3634,27 +4178,6 @@
 
                 renderSelectionOperatorsGrid(filtered);
                 updateSelectionCounters(filtered.length);
-            }
-
-            // 更新tag筛选信息
-            function updateTagFilterInfo() {
-                const tagInfo = document.getElementById('tagFilterInfo');
-                if (selectedTags.size > 0) {
-                    const tags = Array.from(selectedTags).join('、');
-                    tagInfo.textContent = `标签筛选: ${tags}`;
-                } else {
-                    tagInfo.textContent = '';
-                }
-            }
-            // 更新tag筛选信息
-            function updateTagFilterInfo() {
-                const tagInfo = document.getElementById('tagFilterInfo');
-                if (selectedTags.size > 0) {
-                    const tags = Array.from(selectedTags).join('、');
-                    tagInfo.textContent = `标签筛选: ${tags}`;
-                } else {
-                    tagInfo.textContent = '';
-                }
             }
 
             // 渲染选择器干员网格
@@ -4371,19 +4894,6 @@
                 }
             }
 
-            // 显示创建池模态框
-            function showCreatePoolModal() {
-                editingPoolId = null;
-                document.getElementById('modalTitle').textContent = '新建抽取池';
-                document.getElementById('poolNameInput').value = '';
-                document.getElementById('poolDescriptionInput').value = '';
-
-                // 显示主模态框，隐藏切换池模态框
-                document.getElementById('poolModal').classList.add('active');
-                document.getElementById('switchPoolModal').classList.remove('active');
-                document.getElementById('modalOverlay').classList.add('active');
-            }
-
             // 显示切换池模态框
             function showSwitchPoolModal() {
                 const container = document.getElementById('switchPoolList');
@@ -4999,7 +5509,6 @@
                     { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
                     { "name": "撷英调香师", "rarity": 5, "class": "辅助", "subclass": "护佑者", "tags": ["支援", "生存"] },
 
-
                 ];
             }
 
@@ -5416,7 +5925,6 @@
                     { "name": "溯光星源", "rarity": 6, "class": "辅助", "subclass": "凝滞师", "tags": ["减速", "输出", "支援"] },
                     { "name": "娜斯提", "rarity": 6, "class": "辅助", "subclass": "工匠", "tags": ["支援", "防护"] },
                     { "name": "撷英调香师", "rarity": 5, "class": "辅助", "subclass": "护佑者", "tags": ["支援", "生存"] },
-
 
                 ];
             }
