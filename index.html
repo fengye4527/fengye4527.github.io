@@ -1357,6 +1357,26 @@
         .config-status-inactive {
             color: #e74c3c !important;
         }
+
+        /* 添加：输入框警告样式 */
+        .class-count-input.warning {
+            border-color: #e74c3c !important;
+            background: rgba(231, 76, 60, 0.1) !important;
+            color: #e74c3c !important;
+        }
+
+        .class-slider.warning::-webkit-slider-thumb {
+            background: #e74c3c !important;
+        }
+
+        .class-slider.warning::-moz-range-thumb {
+            background: #e74c3c !important;
+        }
+
+        .available-count.warning {
+            color: #e74c3c !important;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -1393,7 +1413,7 @@
                     <!-- 数量控制 -->
                     <div class="input-group">
                         <label>展示干员数量 (1-12)</label>
-                        <input type="number" id="operatorCount" class="number-input" min="1" max="12" value="6">
+                        <input type="number" id="operatorCount" class="number-input" min="1" max="12" value="12">
                     </div>
 
                     <!-- 操作按钮 -->
@@ -3442,32 +3462,6 @@
 
                 // 第一部分：随机展示功能
                 document.getElementById('randomizeBtn').addEventListener('click', function () {
-                    // 检查职业配置是否有效
-                    if (classConfigActive) {
-                        const totalAllocated = Object.values(classRequirements).reduce((a, b) => a + b, 0);
-                        const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
-
-                        if (totalAllocated > displayCount) {
-                            if (confirm(`职业配置数量(${totalAllocated})超过总展示数量(${displayCount})，是否自动调整？`)) {
-                                // 自动调整
-                                const scale = displayCount / totalAllocated;
-                                Object.keys(classRequirements).forEach(cls => {
-                                    classRequirements[cls] = Math.floor(classRequirements[cls] * scale);
-                                });
-
-                                // 更新UI
-                                Object.keys(classRequirements).forEach(cls => {
-                                    document.querySelector(`.class-count-input[data-class="${cls}"]`).value = classRequirements[cls];
-                                    document.querySelector(`.class-slider[data-class="${cls}"]`).value = classRequirements[cls];
-                                });
-
-                                updateAllocatedCount();
-                                showMessage('已自动调整职业配置数量', 'info');
-                            }
-                        }
-                    }
-
-                    // 执行随机展示
                     randomizeDisplay();
                 });
                 document.getElementById('resetFiltersBtn').addEventListener('click', resetRandomDisplay);
@@ -3486,6 +3480,7 @@
                         const numberInput = document.querySelector(`.class-count-input[data-class="${operatorClass}"]`);
                         numberInput.value = this.value;
                         updateAllocatedCount();
+                        validateClassInput(operatorClass);
                     });
                 });
 
@@ -3499,6 +3494,7 @@
                         this.value = value;
                         slider.value = value;
                         updateAllocatedCount();
+                        validateClassInput(operatorClass);
                     });
                 });
 
@@ -3509,6 +3505,7 @@
                     if (value > 12) value = 12;
                     this.value = value;
                     updateTotalDisplayCount();
+                    validateAllClassInputs(); // 更新后重新验证所有输入
                 });
 
                 // 第二部分：选择器功能
@@ -3619,6 +3616,7 @@
 
                 updatePoolStats();
                 updateAvailableCounts(); // 更新可用干员计数
+                validateAllClassInputs(); // 验证所有输入
             }
 
             // 随机展示干员 - 支持职业配置
@@ -3633,6 +3631,15 @@
                 // 获取展示数量
                 const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
                 console.log('需要展示数量:', displayCount);
+
+                // 验证配置是否有效
+                if (classConfigActive) {
+                    const validation = validateClassConfig();
+                    if (!validation.isValid) {
+                        showMessage(validation.message, 'error');
+                        return;
+                    }
+                }
 
                 // 第一步：处理阿米娅干员逻辑（保持原有逻辑）
                 const amiyaOperators = currentPool.operators.filter(op =>
@@ -3881,46 +3888,21 @@
 
             // 应用职业配置
             function applyClassConfig() {
-                // 读取所有职业的配置值
-                const requirements = {};
-                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
-
-                let totalAllocated = 0;
-                let hasRequirements = false;
-
-                classes.forEach(operatorClass => {
-                    const value = parseInt(document.querySelector(`.class-count-input[data-class="${operatorClass}"]`).value) || 0;
-                    requirements[operatorClass] = value;
-
-                    if (value > 0) {
-                        totalAllocated += value;
-                        hasRequirements = true;
-                    }
-                });
-
-                // 检查总数是否合理
-                const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
-
-                if (totalAllocated > displayCount) {
-                    showMessage(`分配的干员数量(${totalAllocated})超过总展示数量(${displayCount})，已自动调整`, 'warning');
-
-                    // 按比例调整
-                    const scale = displayCount / totalAllocated;
-                    classes.forEach(cls => {
-                        requirements[cls] = Math.floor(requirements[cls] * scale);
-                    });
-
-                    // 更新UI
-                    classes.forEach(cls => {
-                        document.querySelector(`.class-count-input[data-class="${cls}"]`).value = requirements[cls];
-                        document.querySelector(`.class-slider[data-class="${cls}"]`).value = requirements[cls];
-                    });
-
-                    updateAllocatedCount();
+                // 验证配置
+                const validation = validateClassConfig();
+                if (!validation.isValid) {
+                    showMessage(validation.message, 'error');
+                    return;
                 }
 
                 // 保存配置
-                classRequirements = requirements;
+                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
+
+                classes.forEach(operatorClass => {
+                    const value = parseInt(document.querySelector(`.class-count-input[data-class="${operatorClass}"]`).value) || 0;
+                    classRequirements[operatorClass] = value;
+                });
+
                 isClassConfigApplied = true;
                 classConfigActive = true;
 
@@ -3928,9 +3910,6 @@
                 document.getElementById('configStatus').textContent = '已应用';
                 document.getElementById('configStatus').className = 'config-status-active';
                 document.getElementById('displayMode').textContent = '职业配置+随机';
-
-                // 检查每个职业的可用干员是否足够
-                checkClassAvailability();
 
                 showMessage('职业配置已应用，下次随机展示将按此配置执行', 'success');
             }
@@ -3966,6 +3945,7 @@
                 document.getElementById('displayMode').textContent = '随机展示';
 
                 updateAllocatedCount();
+                validateAllClassInputs(); // 重置验证状态
                 showMessage('职业配置已重置', 'info');
             }
 
@@ -4009,6 +3989,7 @@
                 });
 
                 updateAllocatedCount();
+                validateAllClassInputs(); // 验证新配置
                 showMessage('已加载平衡队形模板', 'info');
             }
 
@@ -4065,38 +4046,122 @@
                     const countElement = document.querySelector(`.available-count[data-class="${cls}"]`);
                     if (countElement) {
                         countElement.textContent = `可用: ${classCounts[cls]}`;
-
-                        // 如果数量不足，显示警告色
-                        const required = parseInt(document.querySelector(`.class-count-input[data-class="${cls}"]`).value) || 0;
-                        if (required > classCounts[cls]) {
-                            countElement.style.color = '#e74c3c';
-                        } else {
-                            countElement.style.color = '#95a5a6';
-                        }
                     }
                 });
+
+                // 验证所有输入
+                validateAllClassInputs();
             }
 
-            // 检查职业可用性
-            function checkClassAvailability() {
-                if (!currentPool || !currentPool.operators) return;
+            // 验证单个职业输入
+            function validateClassInput(operatorClass) {
+                const input = document.querySelector(`.class-count-input[data-class="${operatorClass}"]`);
+                const slider = document.querySelector(`.class-slider[data-class="${operatorClass}"]`);
+                const availableCountElement = document.querySelector(`.available-count[data-class="${operatorClass}"]`);
 
-                const warnings = [];
-                Object.keys(classRequirements).forEach(cls => {
-                    const required = classRequirements[cls];
-                    if (required > 0) {
-                        // 统计该职业在池中的数量
-                        const available = currentPool.operators.filter(op => op.class === cls).length;
+                if (!input || !slider || !availableCountElement || !currentPool) return;
 
-                        if (required > available) {
-                            warnings.push(`${cls}: 需要${required}个，但池中只有${available}个`);
-                        }
+                const value = parseInt(input.value) || 0;
+                const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
+                const totalAllocated = getTotalAllocated();
+
+                // 获取可用数量
+                let availableCount = 0;
+                try {
+                    const countText = availableCountElement.textContent;
+                    const match = countText.match(/可用: (\d+)/);
+                    if (match) {
+                        availableCount = parseInt(match[1]);
+                    }
+                } catch (e) {
+                    console.log('解析可用数量失败:', e);
+                }
+
+                // 验证条件
+                const exceedsAvailable = value > availableCount;
+                const exceedsDisplayCount = totalAllocated > displayCount;
+
+                // 更新UI状态
+                if (exceedsAvailable) {
+                    input.classList.add('warning');
+                    slider.classList.add('warning');
+                    availableCountElement.classList.add('warning');
+                } else {
+                    input.classList.remove('warning');
+                    slider.classList.remove('warning');
+                    availableCountElement.classList.remove('warning');
+                }
+
+                // 更新已分配计数
+                if (exceedsDisplayCount) {
+                    document.getElementById('allocatedCount').style.color = '#e74c3c';
+                    document.getElementById('allocatedCount').style.fontWeight = 'bold';
+                }
+
+                return {
+                    exceedsAvailable,
+                    exceedsDisplayCount,
+                    value,
+                    availableCount,
+                    displayCount,
+                    totalAllocated
+                };
+            }
+
+            // 验证所有职业输入
+            function validateAllClassInputs() {
+                const classes = ["先锋", "近卫", "医疗", "重装", "狙击", "术师", "辅助", "特种"];
+                let warnings = [];
+
+                classes.forEach(cls => {
+                    const validation = validateClassInput(cls);
+                    if (validation && validation.exceedsAvailable) {
+                        warnings.push(`${cls}: 需要${validation.value}个，但池中只有${validation.availableCount}个`);
                     }
                 });
 
-                if (warnings.length > 0) {
-                    showMessage(`部分职业数量不足：${warnings.join('; ')}`, 'warning');
+                const totalAllocated = getTotalAllocated();
+                const displayCount = parseInt(document.getElementById('operatorCount').value) || 6;
+
+                if (totalAllocated > displayCount) {
+                    warnings.push(`已分配${totalAllocated}个，超过总展示数量${displayCount}个`);
                 }
+
+                return {
+                    isValid: warnings.length === 0,
+                    warnings: warnings,
+                    totalAllocated: totalAllocated,
+                    displayCount: displayCount
+                };
+            }
+
+            // 验证职业配置
+            function validateClassConfig() {
+                const validation = validateAllClassInputs();
+
+                if (validation.warnings.length > 0) {
+                    return {
+                        isValid: false,
+                        message: `配置无效：${validation.warnings.join('；')}`
+                    };
+                }
+
+                return {
+                    isValid: true,
+                    message: '配置有效'
+                };
+            }
+
+            // 获取总分配数量
+            function getTotalAllocated() {
+                const inputs = document.querySelectorAll('.class-count-input');
+                let total = 0;
+
+                inputs.forEach(input => {
+                    total += parseInt(input.value) || 0;
+                });
+
+                return total;
             }
 
             // 辅助函数：从数组中随机选择指定数量的元素
