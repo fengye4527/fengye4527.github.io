@@ -2977,6 +2977,21 @@
                         currentPoolId = pools[0].id;
                     }
 
+                    // 自愈：修复历史版本 bug 遗留的空默认池（默认池应始终包含全部干员）
+                    if (allOperators.length > 0) {
+                        let healed = false;
+                        pools.forEach(function (pool) {
+                            if (pool && pool.isDefault && (!pool.operators || pool.operators.length === 0)) {
+                                pool.operators = [...allOperators];
+                                pool.modifiedAt = new Date().toISOString();
+                                healed = true;
+                            }
+                        });
+                        if (healed) {
+                            savePoolsToStorage();
+                        }
+                    }
+
                     // 更新池列表显示
                     updatePoolListDisplay();
                 } catch (error) {
